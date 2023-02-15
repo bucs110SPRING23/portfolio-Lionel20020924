@@ -7,6 +7,10 @@ print (" Cost per week : ", cost_per_week)
 classes_per_week = 3 
 cost_per_class = ( cost_per_week / classes_per_week)
 print("Cost per class :", cost_per_class)
+print(cost_per_class, type(cost_per_class))
+print(cost_per_week, type(cost_per_week))
+print(classes_per_week, type(classes_per_week))
+
 
 #Part B
 import random

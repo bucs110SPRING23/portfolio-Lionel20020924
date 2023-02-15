@@ -4,7 +4,7 @@ wn.bgcolor("lightgreen")        # set the window background color
 
 tess = turtle.Turtle()
 tess.color("blue")              # make tess blue
-tess.pensize(9)                 # set the width of her pen
+tess.pensize(4)                 # set the width of her pen
 sides = input("what's the sides number")
 lengths = input("give me the length u want")
 sides = int(sides)

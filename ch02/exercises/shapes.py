@@ -44,3 +44,29 @@ t.dot(40, "orange")
 
 # Keep the window open until it is closed manually
 turtle.done()
+import turtle
+
+# 创建一个 turtle 对象
+t = turtle.Turtle()
+
+# 画第一个圆
+t.circle(50)
+
+# 移动 turtle 对象的位置
+t.penup()
+t.goto(0, -100)
+t.pendown()
+
+# 画第二个圆
+t.circle(60)
+
+# 移动 turtle 对象的位置
+t.penup()
+t.goto(0, -200)
+t.pendown()
+
+# 画第三个圆
+t.circle(90)
+
+# 关闭 turtle 窗口
+turtle.done()

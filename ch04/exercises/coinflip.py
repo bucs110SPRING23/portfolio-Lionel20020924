@@ -23,9 +23,9 @@ tess.pendown()
 
     coin = random.choice(['heads', 'tails'])
     if coin == 'heads':
-        t.left(90)
+        tess.left(90)
     else:
-        t.right(90)
+        tess.right(90)
     
 
     t.forward(50)

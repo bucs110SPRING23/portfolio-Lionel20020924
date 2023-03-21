@@ -37,3 +37,4 @@ tess.pendown()
 
 
 turtle.done()
+#  my pc is lovw charge , gonna finish it at night 

@@ -1,38 +1,46 @@
-import numpy as np
-from PIL import Image
+import pygame
+import math
+import random
 
-# 定义图片尺寸
-width = 400
-height = 400
+# 初始化 Pygame
+pygame.init()
 
-# 创建画布
-img = Image.new('RGB', (width, height), color='white')
-pixels = img.load()
+# 获取屏幕分辨率并创建窗口
+screen_width, screen_height = pygame.display.Info().current_w, pygame.display.Info().current_h
+screen = pygame.display.set_mode((screen_width, screen_height))
 
-# 随机生成几个不同颜色的点
-colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (0, 255, 255), (255, 0, 255)]
-num_points = 50
-points = np.random.randint(0, width, (num_points, 2))
-point_colors = [colors[i % len(colors)] for i in range(num_points)]
+# 设置飞镖盘半径和颜色
+radius = min(screen_width, screen_height) // 2
+colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0)]
 
-# 绘制点
-for i in range(num_points):
-    x, y = points[i]
-    pixels[x, y] = point_colors[i]
+# 绘制四色飞镖盘
+for i in range(4):
+    color = colors[i]
+    angle1 = i * math.pi / 2
+    angle2 = (i + 1) * math.pi / 2
+    x1, y1 = screen_width // 2 + int(radius * math.cos(angle1)), screen_height // 2 + int(radius * math.sin(angle1))
+    x2, y2 = screen_width // 2 + int(radius * math.cos(angle2)), screen_height // 2 + int(radius * math.sin(angle2))
+    pygame.draw.polygon(screen, color, [(screen_width // 2, screen_height // 2), (x1, y1), (x2, y2)])
 
-# 随机生成一些不同颜色的线段
-num_lines = 50
-line_colors = [colors[i % len(colors)] for i in range(num_lines)]
-lines = np.random.randint(0, width, (num_lines, 2, 2))
+# 绘制圆形飞镖盘
+pygame.draw.circle(screen, (0, 0, 0), (screen_width // 2, screen_height // 2), radius // 2, 10)
 
-# 绘制线段
-for i in range(num_lines):
-    x1, y1 = lines[i][0]
-    x2, y2 = lines[i][1]
-    for t in np.linspace(0, 1, 100):
-        x = int(x1 + t * (x2 - x1))
-        y = int(y1 + t * (y2 - y1))
-        pixels[x, y] = line_colors[i]
+# 进入主循环
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # 生成随机落点
+            x = random.randrange(screen_width)
+            y = random.randrange(screen_height)
+            # 绘制落点
+            if math.sqrt((x - screen_width // 2) ** 2 + (y - screen_height // 2) ** 2) < radius // 2:
+                pygame.draw.circle(screen, (255, 255, 0), (x, y), 2)
+            else:
+                pygame.draw.circle(screen, (255, 0, 0), (x, y), 2)
+            # 更新屏幕显示
+            pygame.display.flip()
 
-# 保存图片
-img.save('abstract_art.png')
+

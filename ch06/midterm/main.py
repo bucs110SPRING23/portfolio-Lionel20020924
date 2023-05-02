@@ -1,12 +1,14 @@
-import turtle as t
 
+ 
+import turtle as t
+ 
 t.pensize(4)
 t.hideturtle()
 t.colormode(255)
 t.color((255,155,192),"pink")
 t.setup(840,500)
 t.speed(10)
-
+ 
 #  for noise 
 t.pu()
 t.goto(-100,100)
@@ -24,7 +26,7 @@ for i in range(120):
         t.lt(3)
         t.fd(a)
 t.end_fill()
-
+ 
 t.pu()
 t.seth(90)
 t.fd(25)
@@ -37,7 +39,7 @@ t.begin_fill()
 t.circle(5)
 t.color(160,82,45)
 t.end_fill()
-
+ 
 t.pu()
 t.seth(0)
 t.fd(20)
@@ -48,7 +50,7 @@ t.begin_fill()
 t.circle(5)
 t.color(160,82,45)
 t.end_fill()
-
+ 
 #head 
 t.color((255,155,192),"pink")
 t.pu()
@@ -81,7 +83,7 @@ for i in range(60):
         t.lt(3)
         t.fd(a)
 t.end_fill()
-
+ 
 #ears 
 t.color((255,155,192),"pink")
 t.pu()
@@ -96,7 +98,7 @@ t.circle(-50,50)
 t.circle(-10,120)
 t.circle(-50,54)
 t.end_fill()
-
+ 
 t.pu()
 t.seth(90)
 t.fd(-12)
@@ -109,7 +111,7 @@ t.circle(-50,50)
 t.circle(-10,120)
 t.circle(-50,56)
 t.end_fill()
-
+ 
 # eyes
 t.color((255,155,192),"white")
 t.pu()
@@ -121,7 +123,7 @@ t.pd()
 t.begin_fill()
 t.circle(15)
 t.end_fill()
-
+ 
 t.color("black")
 t.pu()
 t.seth(90)
@@ -132,7 +134,7 @@ t.pd()
 t.begin_fill()
 t.circle(3)
 t.end_fill()
-
+ 
 t.color((255,155,192),"white")
 t.pu()
 t.seth(90)
@@ -143,7 +145,7 @@ t.pd()
 t.begin_fill()
 t.circle(15)
 t.end_fill()
-
+ 
 t.color("black")
 t.pu()
 t.seth(90)
@@ -154,7 +156,7 @@ t.pd()
 t.begin_fill()
 t.circle(3)
 t.end_fill()
-
+ 
 #check
 t.color((255,155,192))
 t.pu()
@@ -166,7 +168,7 @@ t.pd()
 t.begin_fill()
 t.circle(30)
 t.end_fill()
-
+ 
 #mouth 
 t.color(239,69,19)
 t.pu()
@@ -178,7 +180,7 @@ t.pd()
 t.seth(-80)
 t.circle(30,40)
 t.circle(40,80)
-
+ 
 #body
 t.color("red",(255,99,71))
 t.pu()
@@ -201,7 +203,7 @@ t.seth(-135)
 t.circle(-80,63)
 t.circle(-150,24)
 t.end_fill()
-
+ 
 #hands
 t.color((255,155,192))
 t.pu()
@@ -220,7 +222,7 @@ t.fd(0)
 t.pd()
 t.seth(-10)
 t.circle(-20,90)
-
+ 
 t.pu()
 t.seth(90)
 t.fd(30)
@@ -237,7 +239,7 @@ t.fd(0)
 t.pd()
 t.seth(-170)
 t.circle(20,90)
-
+ 
 #feet
 t.pensize(10)
 t.color((240,128,128))
@@ -253,7 +255,7 @@ t.seth(-180)
 t.color("black")
 t.pensize(15)
 t.fd(20)
-
+ 
 t.pensize(10)
 t.color((240,128,128))
 t.pu()
@@ -268,7 +270,7 @@ t.seth(-180)
 t.color("black")
 t.pensize(15)
 t.fd(20)
-
+ 
 #tail 
 t.pensize(4)
 t.color((255,155,192))

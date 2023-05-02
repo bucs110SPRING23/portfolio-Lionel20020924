@@ -1,60 +1,16 @@
-import turtle #1. import modules
-import random
-
-#Part A
-window = turtle.Screen() # 2.  Create a screen
-window.bgcolor('lightblue')
-
-michelangelo = turtle.Turtle() # 3.  Create two turtles
-leonardo = turtle.Turtle()
-michelangelo.color('orange')
-leonardo.color('blue')
-michelangelo.shape('turtle')
-leonardo.shape('turtle')
-
-michelangelo.up() # 4. Pick up the pen so we don’t get lines
-leonardo.up()
-michelangelo.goto(-100,20)
-leonardo.goto(-100,-20)
-
-## 5. Your PART A code goes here
-import turtle
-
-screen = turtle.Screen()
-
-turtle1 = turtle.Turtle()
-turtle2 = turtle.Turtle()
-
-turtle1.penup()
-turtle1.goto(-100, 20)
-turtle1.pendown()
-
-turtle2.penup()
-turtle2.goto(-100, -20)
-turtle2.pendown()
-
-for i in range(100):
-    turtle1.forward(i)
-    turtle2.forward(i)
-
-
-
-
-
-
-# race 2 
-# this code include both race 1 and 2  so u can pick any one and miss the other one 
+#part a 
 import turtle
 import random
 
-
+# 创建屏幕
 screen = turtle.Screen()
+screen.setup(500, 500)
 
+# 创建两只海龟
+turtle1 = turtle.Turtle(shape="turtle")
+turtle2 = turtle.Turtle(shape="turtle")
 
-turtle1 = turtle.Turtle()
-turtle2 = turtle.Turtle()
-
-
+# 将海龟移动到起始位置
 turtle1.penup()
 turtle1.goto(-100, 20)
 turtle1.pendown()
@@ -63,17 +19,19 @@ turtle2.penup()
 turtle2.goto(-100, -20)
 turtle2.pendown()
 
-# race 1 
-'''
-turtle1.forward(random.randrange(1, 101))
-turtle2.forward(random.randrange(1, 101))
-'''
+# 移动海龟并重置
+for i in range(5):
+    for turtle in [turtle1, turtle2]:
+        turtle.forward(random.randint(1, 100))
 
-for i in range(100):
-    turtle1.forward(random.randrange(1, 11))
-    turtle2.forward(random.randrange(1, 11))
+        # 判断是否超出边界
+        if turtle.xcor() > 250:
+            turtle.goto(-100, turtle.ycor())
 
+    # 等待 1 秒
+    turtle.delay(1000)
 
+# 重置海龟到起始位置
 turtle1.penup()
 turtle1.goto(-100, 20)
 turtle1.pendown()
@@ -82,77 +40,149 @@ turtle2.penup()
 turtle2.goto(-100, -20)
 turtle2.pendown()
 
+# 等待 1 秒
+turtle.delay(1000)
 
-if turtle1.xcor() > turtle2.xcor():
-    print("turtle1 win！")
-elif turtle2.xcor() > turtle1.xcor():
-    print("turtle 2 win！")
-else:
-    print("same！")
+# 关闭屏幕
+turtle.done()
 
+# race b 
+import turtle
+import random
+
+# 创建屏幕
+screen = turtle.Screen()
+screen.setup(500, 500)
+
+# 创建两只海龟
+turtle1 = turtle.Turtle(shape="turtle")
+turtle2 = turtle.Turtle(shape="turtle")
+
+# 将海龟移动到起始位置
+turtle1.penup()
+turtle1.goto(-100, 20)
+turtle1.pendown()
+
+turtle2.penup()
+turtle2.goto(-100, -20)
+turtle2.pendown()
+
+# 让海龟移动并重置
+for i in range(5):
+    # 为每个海龟调用单独的 forward() 函数，并使用不同的随机值
+    turtle1.forward(random.randrange(1, 10))
+    turtle2.forward(random.randrange(1, 10))
+
+    # 判断是否超出边界
+    if turtle1.xcor() > 250:
+        turtle1.goto(-100, 20)
+
+    if turtle2.xcor() > 250:
+        turtle2.goto(-100, -20)
+
+    # 等待 1 秒
+    turtle.delay(1000)
+
+# 重置海龟到起始位置
+turtle1.penup()
+turtle1.goto(-100, 20)
+turtle1.pendown()
+
+turtle2.penup()
+turtle2.goto(-100, -20)
+turtle2.pendown()
+
+# 等待 1 秒
+turtle.delay(1000)
+
+# 关闭屏幕
 turtle.done()
 
 
 
+
 # PART B - complete part B here
-mport pygame
+import pygame
 import math
 
-
+# 初始化 Pygame
 pygame.init()
 
+# 定义颜色
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
 
-screen_width = 800
-screen_height = 600
+# 设置屏幕尺寸
+size = (700, 500)
+screen = pygame.display.set_mode(size)
 
+# 设置窗口标题
+pygame.display.set_caption("绘制正多边形")
 
-window = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("drawing")
+# 循环标志
+done = False
 
+# 游戏循环
+while not done:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
 
-black = (0, 0, 0)
-white = (255, 255, 255)
-red = (255, 0, 0)
+    # 清屏
+    screen.fill(WHITE)
 
+    # 绘制三角形
+    pygame.draw.polygon(screen, BLACK, [(100, 100), (150, 150), (50, 150)], 2)
+    pygame.display.flip()
 
-xpos = 200
-ypos = 200
-side_length = 100
-num_sides = 5
+    # 绘制正方形
+    pygame.draw.polygon(screen, BLACK, [(250, 100), (350, 100), (350, 200), (250, 200)], 2)
 
+    # 绘制六边形
+    x = 500
+    y = 150
+    radius = 50
+    points = []
+    for i in range(6):
+        angle = math.radians(60 * i)
+        x_i = x + radius * math.cos(angle)
+        y_i = y + radius * math.sin(angle)
+        points.append((x_i, y_i))
+    pygame.draw.polygon(screen, BLACK, points, 2)
+    pygame.display.flip()
 
-points = []
+    # 绘制二十边形
+    x = 100
+    y = 350
+    radius = 50
+    points = []
+    for i in range(20):
+        angle = math.radians(18 * i)
+        x_i = x + radius * math.cos(angle)
+        y_i = y + radius * math.sin(angle)
+        points.append((x_i, y_i))
+    pygame.draw.polygon(screen, BLACK, points, 2)
+    pygame.display.flip()
 
+    # 绘制100面形
+    x = 300
+    y = 350
+    radius = 50
+    points = []
+    for i in range(100):
+        angle = math.radians(3.6 * i)
+        x_i = x + radius * math.cos(angle)
+        y_i = y + radius * math.sin(angle)
+        points.append((x_i, y_i))
+    pygame.draw.polygon(screen, BLACK, points, 2)
+    pygame.display.flip()
 
-for i in range(num_sides):
-   
-    angle = 360 / num_sides
+    # 绘制圆形
+    pygame.draw.circle(screen, RED, (550, 350), 50, 2)
 
-    radians = math.radians(angle * i)
-    
-    x = xpos + side_length * math.cos(radians)
-    
-    y = ypos + side_length * math.sin(radians)
-    
-    points.append([x, y])
+    # 刷新屏幕
+    pygame.display.flip()
 
-
-pygame.draw.polygon(window, white, points, 2)
-
-
-pygame.draw.polygon(window, red, points)
-
-
-pygame.display.flip()
-
-
-pygame.time.wait(1000)
-
-
-window.fill(black)
-pygame.display.flip()
-
+# 退出 Pygame
 pygame.quit()
-
-
-window.exitonclick()

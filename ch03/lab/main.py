@@ -1,75 +1,49 @@
-# it doesn'y work i still need some time to finish the code . I will try to regrade this lab soon 
-import pygame
 
-# Initialize Pygame
+# B 
+import pygame
+import math
+import random
+
+# 初始化 Pygame
 pygame.init()
 
-# Set the screen size
-screen_size = (800, 600)
+# 获取屏幕分辨率并创建窗口
+screen_width, screen_height = pygame.display.Info().current_w, pygame.display.Info().current_h
+screen = pygame.display.set_mode((screen_width, screen_height))
 
-# Create the screen
-screen = pygame.display.set_mode(screen_size)
+# 设置飞镖盘半径和颜色
+radius = min(screen_width, screen_height) // 2
+colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0)]
 
-# Set the caption of the screen
-pygame.display.set_caption("Dart Game")
+# 绘制四色飞镖盘
+for i in range(4):
+    color = colors[i]
+    angle1 = i * math.pi / 2
+    angle2 = (i + 1) * math.pi / 2
+    x1, y1 = screen_width // 2 + int(radius * math.cos(angle1)), screen_height // 2 + int(radius * math.sin(angle1))
+    x2, y2 = screen_width // 2 + int(radius * math.cos(angle2)), screen_height // 2 + int(radius * math.sin(angle2))
+    pygame.draw.polygon(screen, color, [(screen_width // 2, screen_height // 2), (x1, y1), (x2, y2)])
 
-# Set the background color
-background_color = (255, 255, 255)
+# 绘制圆形飞镖盘
+pygame.draw.circle(screen, (0, 0, 0), (screen_width // 2, screen_height // 2), radius // 2, 10)
 
-# Set the dartboard colors
-dartboard_color = (0, 0, 0)
-inner_circle_color = (255, 0, 0)
-outer_circle_color = (0, 255, 0)
-line_color = (0, 0, 255)
-
-# Set the position and size of the dartboard
-dartboard_position = (0, 0)
-dartboard_radius = 250
-
-# Set the position and size of the inner circle
-inner_circle_position = (0, 0)
-inner_circle_radius = 50
-
-# Set the position and size of the outer circle
-outer_circle_position = (0, 0)
-outer_circle_radius = 125
-
-# Set the position and size of the line
-line_position = (0, 0)
-line_length = 500
-line_width = 5
-
-# Fill the background with the background color
-screen.fill(background_color)
-
-# Draw the dartboard
-pygame.draw.circle(screen, dartboard_color, dartboard_position, dartboard_radius)
-pygame.draw.circle(screen, inner_circle_color, inner_circle_position, inner_circle_radius)
-pygame.draw.circle(screen, outer_circle_color, outer_circle_position, outer_circle_radius, width=5)
-
-# Draw the line
-pygame.draw.line(screen, line_color, line_position, (line_position[0] + line_length, line_position[1]), line_width)
-
-
-pygame.display.flip()
-
-running = True
-while running:
+# 进入主循环
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            # Get the mouse position
-            mouse_position = pygame.mouse.get_pos()
-
-            # Draw the dart at the mouse position
-            dart_position = mouse_position
-            dart_radius = 10
-            dart_color = (0, 0, 0)
-            pygame.draw.circle(screen, dart_color, dart_position, dart_radius)
-
-            # Update the display
+            pygame.quit()
+            exit()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # 生成随机落点
+            x = random.randrange(screen_width)
+            y = random.randrange(screen_height)
+            # 绘制落点
+            if math.sqrt((x - screen_width // 2) ** 2 + (y - screen_height // 2) ** 2) < radius // 2:
+                pygame.draw.circle(screen, (255, 255, 0), (x, y), 2)
+            else:
+                pygame.draw.circle(screen, (255, 0, 0), (x, y), 2)
+            # 更新屏幕显示
             pygame.display.flip()
 
-# Quit Pygame
-pygame.quit()
+
+

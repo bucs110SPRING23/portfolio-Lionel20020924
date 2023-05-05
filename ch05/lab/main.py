@@ -1,46 +1,114 @@
 import pygame
-import math
-import random
+def threenp1(n):
+    while n > 1.0:
+       if n % 2 == 0:
+        n = int(n / 2)
+       else:
+        n = int(3 * n + 1)
+    return None
 
-# 初始化 Pygame
-pygame.init()
+def threenp1(start):
+    count = 0
+    n = start
+    while n != 1:
+        if n % 2 == 0:
+            n //= 2
+        else:
+            n = n * 3 + 1
+        count += 1
+    return count
 
-# 获取屏幕分辨率并创建窗口
-screen_width, screen_height = pygame.display.Info().current_w, pygame.display.Info().current_h
-screen = pygame.display.set_mode((screen_width, screen_height))
 
-# 设置飞镖盘半径和颜色
-radius = min(screen_width, screen_height) // 2
-colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0)]
+def three_n_plus_1(n):
+    count = 0
+    while n != 1:
+        if n % 2 == 0:
+            n = n // 2
+        else:
+            n = 3*n + 1
+        count += 1
+    return count
 
-# 绘制四色飞镖盘
-for i in range(4):
-    color = colors[i]
-    angle1 = i * math.pi / 2
-    angle2 = (i + 1) * math.pi / 2
-    x1, y1 = screen_width // 2 + int(radius * math.cos(angle1)), screen_height // 2 + int(radius * math.sin(angle1))
-    x2, y2 = screen_width // 2 + int(radius * math.cos(angle2)), screen_height // 2 + int(radius * math.sin(angle2))
-    pygame.draw.polygon(screen, color, [(screen_width // 2, screen_height // 2), (x1, y1), (x2, y2)])
+def count_iterations(lower_limit, upper_limit):
+    objs_in_sequence = {}
+    for i in range(lower_limit, upper_limit+1):
+        for j in range(2, i+1):
+            count = three_n_plus_1(j)
+            if count not in objs_in_sequence:
+                objs_in_sequence[count] = []
+            objs_in_sequence[count].append(j)
+    return objs_in_sequence
 
-# 绘制圆形飞镖盘
-pygame.draw.circle(screen, (0, 0, 0), (screen_width // 2, screen_height // 2), radius // 2, 10)
 
-# 进入主循环
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            # 生成随机落点
-            x = random.randrange(screen_width)
-            y = random.randrange(screen_height)
-            # 绘制落点
-            if math.sqrt((x - screen_width // 2) ** 2 + (y - screen_height // 2) ** 2) < radius // 2:
-                pygame.draw.circle(screen, (255, 255, 0), (x, y), 2)
-            else:
-                pygame.draw.circle(screen, (255, 0, 0), (x, y), 2)
-            # 更新屏幕显示
-            pygame.display.flip()
+# B
+import pygame
 
+def threenp1(start):
+    count = 0
+    n = start
+    while n != 1:
+        if n % 2 == 0:
+            n //= 2
+        else:
+            n = n * 3 + 1
+        count += 1
+    return count
+
+def threenp1range(lower, upper):
+    results = {}
+    for n in range(lower, upper+1):
+        results[n] = threenp1(n)
+    return results
+
+def graph_coordinates(data_dict, width, height):
+    max_iter = max(data_dict.values())
+    points = []
+    for n, iterations in data_dict.items():
+        x = int(width * (n - 2) / (len(data_dict) - 2))
+        y = int(height - height * (iterations / max_iter))
+        points.append((x, y))
+    return points
+
+def main():
+    pygame.init()
+
+    # Set up screen
+    screen_width = 800
+    screen_height = 600
+    screen = pygame.display.set_mode((screen_width, screen_height))
+    pygame.display.set_caption('3n+1 Graph')
+
+    # Set upper limit of range
+    upper_limit = 100
+
+    # Get coordinates for graph
+    data_dict = threenp1range(2, upper_limit)
+    coordinates = graph_coordinates(data_dict, screen_width, screen_height)
+
+    # Draw graph
+    screen.fill((255, 255, 255))
+    if len(coordinates) > 1:
+        pygame.draw.lines(screen, (255, 0, 0), False, coordinates, 2)
+
+    # Show maximum iterations
+    max_iterations = max(data_dict.values())
+    message = f'Max iterations: {max_iterations}'
+    font = pygame.font.Font(None, 30)
+    text = font.render(message, True, (0, 0, 0))
+    screen.blit(text, (10, 10))
+
+    # Update display
+    pygame.display.flip()
+
+    # Wait for user to close window
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+    pygame.quit()
+
+if __name__ == '__main__':
+    main()
 

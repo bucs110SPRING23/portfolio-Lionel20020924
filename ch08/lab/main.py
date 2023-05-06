@@ -1,5 +1,14 @@
+class StringUtility:
+    def __init__(self, string):
+        self.string = string
+    def __str__(self):
+        return self.string
 from stringutility import StringUtility
-
+class StringUtility:
+    def __init__(self, string):
+        self.string = string
+    def __str__(self):
+        return self.string
 def main():
 
     # create a list of StringUtility objects to use for testing
@@ -82,3 +91,8 @@ def main():
     print("=========== Tests Complete! ===========")
 
 main()
+class StringUtility:
+    def __init__(self, string):
+        self.string = string
+    def __str__(self):
+        return self.string
